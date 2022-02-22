@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'SingleDebt.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../database/Database.dart';
-import 'HeadlineText.dart';
-import '../create/CreateScreen.dart';
-import '../delete/ConfirmDeletionDialog.dart';
+import 'package:debttracker/widgets/SingleDebt.dart';
+import 'package:debttracker/widgets/HeadlineText.dart';
+import 'package:debttracker/database/Database.dart';
+import 'package:debttracker/screens/CreateScreen.dart';
+import 'package:debttracker/widgets/ConfirmDeletionDialog.dart';
 
-class DebtList extends StatefulWidget {
+class DebtListScreen extends StatefulWidget {
   @override
-  _DebtListState createState() => _DebtListState();
+  _DebtListScreenState createState() => _DebtListScreenState();
 }
 
-class _DebtListState extends State<DebtList> {
+class _DebtListScreenState extends State<DebtListScreen> {
   FirebaseUser user;
   Database database;
   int maxID = 0;

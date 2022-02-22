@@ -1,10 +1,9 @@
-import 'package:debttracker/update/UpdateScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'DebtText.dart';
-import 'ClaimText.dart';
-import '../update/UpdateScreen.dart';
-import '../read/ReadScreen.dart';
+import 'package:debttracker/screens/UpdateScreen.dart';
+import 'package:debttracker/widgets/DebtText.dart';
+import 'package:debttracker/widgets/ClaimText.dart';
+import 'package:debttracker/screens/ReadScreen.dart';
 
 class SingleDebt extends StatelessWidget {
   final String debtKey;
