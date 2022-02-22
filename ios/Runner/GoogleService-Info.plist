@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>754160963012-p78ria8q1tg8ph37hi5c6rtntb4pt82j.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.754160963012-p78ria8q1tg8ph37hi5c6rtntb4pt82j</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAUeXUUbFDogN48GVZRMJImCtG9DCMRnqs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>754160963012</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.debttracker</string>
+	<key>PROJECT_ID</key>
+	<string>debttracker-fdd3e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>debttracker-fdd3e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:754160963012:ios:a0ab32b211ebe83374a891</string>
+	<key>DATABASE_URL</key>
+	<string>https://debttracker-fdd3e.firebaseio.com</string>
+</dict>
+</plist>

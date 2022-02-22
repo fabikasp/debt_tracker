@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "754160963012",
+    "firebase_url": "https://debttracker-fdd3e.firebaseio.com",
+    "project_id": "debttracker-fdd3e",
+    "storage_bucket": "debttracker-fdd3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754160963012:android:e7b34e90dcea1faa74a891",
+        "android_client_info": {
+          "package_name": "com.example.debttracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754160963012-qe5abua2pjfgi5u0jjufg80c0j4m12gt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxLT5UkOoUmSWLkwMjS5Qm3MNN-JWbkY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754160963012-qe5abua2pjfgi5u0jjufg80c0j4m12gt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
