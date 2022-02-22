@@ -1,2 +1,3 @@
-# debt_tracker
-App for managing financial debts and claims
+# debttracker
+
+App for tracking debts and claims.
