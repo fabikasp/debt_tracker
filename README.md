@@ -8,7 +8,7 @@ App for tracking debts and claims.
 2. Run `flutter pub get`
 3. Run `flutter run` to execute application on an attached device
 
-## Used Libraries
+## Used Software
 
 <table>
   <tr>
