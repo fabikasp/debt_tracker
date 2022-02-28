@@ -7,11 +7,11 @@ class Database {
   Database(this.userID);
 
   Stream getDebts() {
-    return userDebts.document(userID).snapshots();
+    return this.userDebts.document(this.userID).snapshots();
   }
 
   Future setDebt(int id, String type, String person, double amount, String reason) async {
-    return await userDebts.document(userID).setData(
+    return await this.userDebts.document(this.userID).setData(
         {
           id.toString(): {
             "type": type,
@@ -25,13 +25,13 @@ class Database {
   }
 
   Future deleteDebt(String key) async {
-    return await userDebts.document(userID).updateData(
+    return await this.userDebts.document(this.userID).updateData(
         {key: FieldValue.delete()}
     );
   }
 
   Future checkIfUserExists() async {
-    return (await userDebts.document(userID).get()).exists
+    return (await this.userDebts.document(this.userID).get()).exists
         ? true
         : false;
   }

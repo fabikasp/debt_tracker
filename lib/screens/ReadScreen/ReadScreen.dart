@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class ReadScreen extends StatelessWidget {
   final Map data;
+
   ReadScreen(this.data);
 
   @override
@@ -45,9 +46,9 @@ class ReadScreen extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              data['type'] == 'debt' ? 'Schuld' : 'Forderung',
+              this.data['type'] == 'debt' ? 'Schuld' : 'Forderung',
               style: TextStyle(
-                color: data['type'] == 'debt' ? Colors.red : Colors.green,
+                color: this.data['type'] == 'debt' ? Colors.red : Colors.green,
                 fontSize: 20,
                 fontFamily: 'Arial',
                 fontWeight: FontWeight.bold
@@ -65,7 +66,7 @@ class ReadScreen extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              data['person'],
+              this.data['person'],
               style: TextStyle(
                 color: Colors.black45,
                 fontSize: 20,
@@ -88,7 +89,7 @@ class ReadScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(right: 20, left: 20),
               child: Text(
-                data['reason'],
+                this.data['reason'],
                 style: TextStyle(
                   color: Colors.black45,
                   fontSize: 20,
@@ -111,9 +112,9 @@ class ReadScreen extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              data['amount'].toStringAsFixed(2) + ' €',
+              this.data['amount'].toStringAsFixed(2) + ' €',
               style: TextStyle(
-                color: data['type'] == 'debt' ? Colors.red : Colors.green,
+                color: this.data['type'] == 'debt' ? Colors.red : Colors.green,
                 fontSize: 20,
                 fontFamily: 'Arial',
                 fontWeight: FontWeight.bold

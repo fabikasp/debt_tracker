@@ -28,7 +28,7 @@ class ConfirmDeletionDialog extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8)
             ),
-            onPressed: deleteDebt,
+            onPressed: this.deleteDebt,
             color: Colors.amber[700],
             child: Text(
               'Ja',

@@ -23,7 +23,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
   }
 
   void saveAndClose(String id, String type, String person, String amount, String reason) {
-    if (formKey.currentState.validate()) {
+    if (this.formKey.currentState.validate()) {
       widget.updateDebt(int.parse(id), type, person, double.parse(amount), reason);
       close();
     }
@@ -38,14 +38,60 @@ class _UpdateScreenState extends State<UpdateScreen> {
     return double.tryParse(str) != null;
   }
 
+  String validatePerson(String person) {
+    if (person.isEmpty) {
+      return 'Bitte Person angeben';
+    }
+
+    if (person.length > 30) {
+      return 'Nicht mehr als 20 Zeichen verwenden';
+    }
+
+    return null;
+  }
+
+  String validateReason(String reason) {
+    if (reason.isEmpty) {
+      return 'Bitte Grund angeben';
+    }
+
+    if (reason.length > 100) {
+      return 'Nicht mehr als 100 Zeichen verwenden';
+    }
+
+    return null;
+  }
+
+  String validateAmount(String amount) {
+    amount = amount.replaceAll(',', '.');
+
+    if (amount.isEmpty) {
+      return 'Bitte Betrag angeben';
+    }
+
+    if (!this.isNumeric(amount)) {
+      return 'Betrag muss eine Zahl sein';
+    }
+
+    if (double.parse(amount) == 0) {
+      return 'Betrag ist zu klein';
+    }
+
+    if (double.parse(amount) > 9999999999) {
+      return 'Betrag ist zu groß';
+    }
+
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
 
-    radioValue = widget.data['type'] == 'debt' ? 0 : 1;
-    person = widget.data['person'];
-    amount = widget.data['amount'].toString();
-    reason = widget.data['reason'];
+    this.radioValue = widget.data['type'] == 'debt' ? 0 : 1;
+    this.person = widget.data['person'];
+    this.amount = widget.data['amount'].toString();
+    this.reason = widget.data['reason'];
   }
 
   @override
@@ -62,9 +108,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                   Text(
                     'DebtTracker',
                     style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25,
-                        fontFamily: 'Arial'
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontFamily: 'Arial'
                     )
                   )
                 ],
@@ -78,7 +124,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
             child: Container(
               margin: EdgeInsets.only(top: 5, left: 10, right: 10),
               child: Form(
-                key: formKey,
+                key: this.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
@@ -86,19 +132,19 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     Text(
                       'Typ:',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontFamily: 'Arial'
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontFamily: 'Arial'
                       )
                     ),
                     Row(
                       children: <Widget>[
                         Radio(
                           value: 0,
-                          groupValue: radioValue,
+                          groupValue: this.radioValue,
                           onChanged: (value) {
                             setState(() {
-                              radioValue = value;
+                              this.radioValue = value;
                             });
                           },
                           activeColor: Colors.amber[700],
@@ -106,17 +152,17 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         Text(
                           'Schuld',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Arial'
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Arial'
                           )
                         ),
                         Radio(
                           value: 1,
-                          groupValue: radioValue,
+                          groupValue: this.radioValue,
                           onChanged: (value) {
                             setState(() {
-                              radioValue = value;
+                              this.radioValue = value;
                             });
                           },
                           activeColor: Colors.amber[700],
@@ -124,9 +170,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         Text(
                           'Forderung',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Arial'
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Arial'
                           )
                         ),
                       ],
@@ -135,9 +181,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     Text(
                       'Person',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontFamily: 'Arial'
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontFamily: 'Arial'
                       )
                     ),
                     SizedBox(height: 15),
@@ -163,20 +209,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         fontSize: 18,
                         fontFamily: 'Arial'
                       ),
-                      validator: (String input) {
-                        if (input.isEmpty) {
-                          return 'Bitte Person angeben';
-                        }
-
-                        if (input.length > 30) {
-                          return 'Nicht mehr als 20 Zeichen verwenden';
-                        }
-
-                        return null;
-                      },
+                      validator: (String input) => this.validatePerson(input),
                       onChanged: (input) {
                         setState(() {
-                          person = input;
+                          this.person = input;
                         });
                       }
                     ),
@@ -212,20 +248,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         fontSize: 18,
                         fontFamily: 'Arial'
                       ),
-                      validator: (String input) {
-                        if (input.isEmpty) {
-                          return 'Bitte Grund angeben';
-                        }
-
-                        if (input.length > 100) {
-                          return 'Nicht mehr als 100 Zeichen verwenden';
-                        }
-
-                        return null;
-                      },
+                      validator: (String input) => this.validateReason(input),
                       onChanged: (input) {
                         setState(() {
-                          reason = input;
+                          this.reason = input;
                         });
                       }
                     ),
@@ -233,9 +259,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     Text(
                       'Betrag',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontFamily: 'Arial'
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontFamily: 'Arial'
                       )
                     ),
                     SizedBox(height: 15),
@@ -265,30 +291,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
                               fontSize: 18,
                               fontFamily: 'Arial'
                             ),
-                            validator: (input) {
-                              input = input.replaceAll(',', '.');
-
-                              if (input.isEmpty) {
-                                return 'Bitte Betrag angeben';
-                              }
-
-                              if (!isNumeric(input)) {
-                                return 'Betrag muss eine Zahl sein';
-                              }
-
-                              if (double.parse(input) == 0) {
-                                return 'Betrag ist zu klein';
-                              }
-
-                              if (double.parse(input) > 9999999999) {
-                                return 'Betrag ist zu groß';
-                              }
-
-                              return null;
-                            },
+                            validator: (input) => this.validateAmount(input),
                             onChanged: (input) {
                               setState(() {
-                                amount = input.replaceAll(',', '.');
+                                this.amount = input.replaceAll(',', '.');
                               });
                             }
                           ),
@@ -297,9 +303,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         Text(
                           '€',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontFamily: 'Arial'
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontFamily: 'Arial'
                           )
                         ),
                       ],
@@ -310,10 +316,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       child: RaisedButton(
                         onPressed: () => saveAndClose(
                           widget.id,
-                          radioValue == 0 ? 'debt' : 'claim',
-                          person,
-                          amount,
-                          reason
+                          this.radioValue == 0 ? 'debt' : 'claim',
+                          this.person,
+                          this.amount,
+                          this.reason
                         ),
                         disabledColor: Colors.amber[700],
                         color: Colors.amber[700],
@@ -321,9 +327,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         child: Text(
                           'Speichern',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontFamily: 'Arial'
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontFamily: 'Arial'
                           )
                         ),
                         shape: RoundedRectangleBorder(
@@ -342,9 +348,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         child: Text(
                           'Zurück',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontFamily: 'Arial'
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontFamily: 'Arial'
                           )
                         ),
                         shape: RoundedRectangleBorder(

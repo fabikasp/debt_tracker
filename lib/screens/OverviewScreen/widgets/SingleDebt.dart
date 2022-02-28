@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Flutter/FlutterProjects/debt_tracker/lib/screens/UpdateScreen/UpdateScreen.dart';
-import 'file:///C:/Flutter/FlutterProjects/debt_tracker/lib/screens/OverviewScreen/widgets/DebtText.dart';
-import 'file:///C:/Flutter/FlutterProjects/debt_tracker/lib/screens/OverviewScreen/widgets/ClaimText.dart';
-import 'file:///C:/Flutter/FlutterProjects/debt_tracker/lib/screens/ReadScreen/ReadScreen.dart';
+import 'package:debttracker/screens/UpdateScreen/UpdateScreen.dart';
+import 'package:debttracker/screens/ReadScreen//ReadScreen.dart';
+import 'package:debttracker/screens/OverviewScreen/widgets/DebtText.dart';
+import 'package:debttracker/screens/OverviewScreen/widgets/ClaimText.dart';
 
 class SingleDebt extends StatelessWidget {
   final String debtKey;
@@ -23,29 +23,29 @@ class SingleDebt extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return ListTile(
-            title: data['type'] == 'debt' ? DebtText(data) : ClaimText(data),
+            title: this.data['type'] == 'debt' ? DebtText(this.data) : ClaimText(this.data),
             trailing: IconButton(
                 icon: Icon(
                   Icons.delete_forever,
                   color: Colors.black,
                   size: 27,
                 ),
-                onPressed: () => confirmDeletion()
+                onPressed: () => this.confirmDeletion()
             ),
             onLongPress: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => UpdateScreen(
-                  updateDebt: updateDebt,
-                  id: debtKey,
-                  data: data
+                  updateDebt: this.updateDebt,
+                  id: this.debtKey,
+                  data: this.data
                 )),
               );
             },
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ReadScreen(data)),
+                MaterialPageRoute(builder: (context) => ReadScreen(this.data)),
               );
             },
           );

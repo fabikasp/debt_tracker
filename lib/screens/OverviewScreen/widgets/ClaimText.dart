@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ClaimText extends StatelessWidget {
   final Map data;
+
   ClaimText(this.data);
 
   @override
@@ -10,7 +11,7 @@ class ClaimText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          data['person'] + ' ',
+          this.data['person'] + ' ',
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -28,7 +29,7 @@ class ClaimText extends StatelessWidget {
           ),
         ),
         Text(
-          data['amount'].toStringAsFixed(2) + ' €',
+          this.data['amount'].toStringAsFixed(2) + ' €',
           style: TextStyle(
             color: Colors.green,
             fontSize: 18,

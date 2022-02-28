@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class DebtText extends StatelessWidget {
   final Map data;
+
   DebtText(this.data);
 
   @override
@@ -18,7 +19,7 @@ class DebtText extends StatelessWidget {
           ),
         ),
         Text(
-          data['person'] + ' ',
+          this.data['person'] + ' ',
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -28,7 +29,7 @@ class DebtText extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         Text(
-          data['amount'].toStringAsFixed(2) + ' €',
+          this.data['amount'].toStringAsFixed(2) + ' €',
           style: TextStyle(
             color: Colors.red,
             fontSize: 18,

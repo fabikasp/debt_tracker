@@ -20,21 +20,21 @@ class _OverviewScreenState extends State<OverviewScreen> {
   Future<void> connectToFirebase() async {
     final FirebaseAuth authenticate = FirebaseAuth.instance;
     AuthResult result = await authenticate.signInAnonymously();
-    user = result.user;
+    this.user = result.user;
 
-    database = Database(user.uid);
+    this.database = Database(this.user.uid);
   }
 
   void setDebt(String type, String person, double amount, String reason) {
-    database.setDebt(maxID + 1, type, person, amount, reason);
+    this.database.setDebt(this.maxID + 1, type, person, amount, reason);
   }
 
   void updateDebt(int id, String type, String person, double amount, String reason) {
-    database.setDebt(id, type, person, amount, reason);
+    this.database.setDebt(id, type, person, amount, reason);
   }
 
   void deleteDebt(String key, context) {
-    database.deleteDebt(key);
+    this.database.deleteDebt(key);
     Navigator.pop(context);
   }
 
@@ -49,7 +49,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   StreamBuilder<DocumentSnapshot> buildHeadlineText(String type) {
     return StreamBuilder<DocumentSnapshot>(
-        stream: database.getDebts(),
+        stream: this.database.getDebts(),
         builder: (
           context,
           AsyncSnapshot<DocumentSnapshot> snapshot
@@ -85,12 +85,12 @@ class _OverviewScreenState extends State<OverviewScreen> {
   void setMaxID(Map<String, dynamic> items) {
     if (items != null) {
       for (var singleKey in items.keys) {
-        if (int.parse(singleKey) > maxID) {
-          maxID = int.parse(singleKey);
+        if (int.parse(singleKey) > this.maxID) {
+          this.maxID = int.parse(singleKey);
         }
       }
     } else {
-      maxID = 0;
+      this.maxID = 0;
     }
   }
 
@@ -101,7 +101,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       );
     } else {
       return StreamBuilder<DocumentSnapshot>(
-          stream: database.getDebts(),
+          stream: this.database.getDebts(),
           builder: (
             context,
             AsyncSnapshot<DocumentSnapshot> snapshot

@@ -11,7 +11,7 @@ class HeadlineText extends StatelessWidget {
     return Row(
       children: <Widget>[
         Text(
-          type == 'debt' ? 'Gesamtschuld: ' : 'Gesamtforderung: ',
+          this.type == 'debt' ? 'Gesamtschuld: ' : 'Gesamtforderung: ',
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
@@ -21,9 +21,9 @@ class HeadlineText extends StatelessWidget {
         ),
         Flexible(
           child: Text(
-            amount.toStringAsFixed(2) + ' €',
+            this.amount.toStringAsFixed(2) + ' €',
             style: TextStyle(
-              color: type == 'debt' ? Colors.red : Colors.green,
+              color: this.type == 'debt' ? Colors.red : Colors.green,
               fontSize: 20,
               fontFamily: 'Arial',
               fontWeight: FontWeight.bold
