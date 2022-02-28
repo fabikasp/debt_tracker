@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:debttracker/validator/Validator.dart';
 
 class CreateScreen extends StatefulWidget {
   final Function setDebt;
 
-  const CreateScreen({ Key key, this.setDebt }): super(key: key);
+  CreateScreen({ Key key, this.setDebt }): super(key: key);
 
   @override
   _CreateScreenState createState() => _CreateScreenState();
@@ -27,60 +28,6 @@ class _CreateScreenState extends State<CreateScreen> {
 
       this.close();
     }
-  }
-
-  bool isNumeric(String str) {
-    if (str == null) {
-      return false;
-    }
-
-    return double.tryParse(str) != null;
-  }
-
-  String validatePerson(String person) {
-    if (person.isEmpty) {
-      return 'Bitte Person angeben';
-    }
-
-    if (person.length > 30) {
-      return 'Nicht mehr als 20 Zeichen verwenden';
-    }
-
-    return null;
-  }
-
-  String validateReason(String reason) {
-    if (reason.isEmpty) {
-      return 'Bitte Grund angeben';
-    }
-
-    if (reason.length > 100) {
-      return 'Nicht mehr als 100 Zeichen verwenden';
-    }
-
-    return null;
-  }
-
-  String validateAmount(String amount) {
-    amount = amount.replaceAll(',', '.');
-
-    if (amount.isEmpty) {
-      return 'Bitte Betrag angeben';
-    }
-
-    if (!this.isNumeric(amount)) {
-      return 'Betrag muss eine Zahl sein';
-    }
-
-    if (double.parse(amount) == 0) {
-      return 'Betrag ist zu klein';
-    }
-
-    if (double.parse(amount) > 9999999999) {
-      return 'Betrag ist zu groß';
-    }
-
-    return null;
   }
 
   @override
@@ -197,7 +144,7 @@ class _CreateScreenState extends State<CreateScreen> {
                         fontSize: 18,
                         fontFamily: 'Arial'
                       ),
-                      validator: (String input) => this.validatePerson(input),
+                      validator: (String input) => Validator.validatePerson(input),
                       onChanged: (input) {
                         setState(() {
                           this.person = input;
@@ -235,7 +182,7 @@ class _CreateScreenState extends State<CreateScreen> {
                         fontSize: 18,
                         fontFamily: 'Arial'
                       ),
-                      validator: (String input) => this.validateReason(input),
+                      validator: (String input) => Validator.validateReason(input),
                       onChanged: (input) {
                         setState(() {
                           this.reason = input;
@@ -277,7 +224,7 @@ class _CreateScreenState extends State<CreateScreen> {
                               fontSize: 18,
                               fontFamily: 'Arial'
                             ),
-                            validator: (String input) => this.validateAmount(input),
+                            validator: (String input) => Validator.validateAmount(input),
                             onChanged: (input) {
                               setState(() {
                                 this.amount = input.replaceAll(',', '.');
