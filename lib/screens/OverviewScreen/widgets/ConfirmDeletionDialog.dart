@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class ConfirmDeletionDialog extends StatelessWidget {
   final Function deleteDebt;
-  const ConfirmDeletionDialog(this.deleteDebt);
+
+  ConfirmDeletionDialog(this.deleteDebt);
 
   @override
   Widget build(BuildContext context) {

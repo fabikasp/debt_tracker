@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:debttracker/screens/UpdateScreen.dart';
-import 'package:debttracker/widgets/DebtText.dart';
-import 'package:debttracker/widgets/ClaimText.dart';
-import 'package:debttracker/screens/ReadScreen.dart';
+import 'file:///C:/Flutter/FlutterProjects/debt_tracker/lib/screens/UpdateScreen/UpdateScreen.dart';
+import 'file:///C:/Flutter/FlutterProjects/debt_tracker/lib/screens/OverviewScreen/widgets/DebtText.dart';
+import 'file:///C:/Flutter/FlutterProjects/debt_tracker/lib/screens/OverviewScreen/widgets/ClaimText.dart';
+import 'file:///C:/Flutter/FlutterProjects/debt_tracker/lib/screens/ReadScreen/ReadScreen.dart';
 
 class SingleDebt extends StatelessWidget {
   final String debtKey;
   final Map data;
   final Function confirmDeletion;
   final Function updateDebt;
+
   SingleDebt(this.debtKey, this.data, this.confirmDeletion, this.updateDebt);
 
   @override

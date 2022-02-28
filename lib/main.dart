@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/DebtListScreen.dart';
+import 'screens/OverviewScreen/OverviewScreen.dart';
 
 void main() {
-  runApp(DebtListScreen());
+  runApp(OverviewScreen());
 }

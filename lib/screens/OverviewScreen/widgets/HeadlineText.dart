@@ -13,10 +13,10 @@ class HeadlineText extends StatelessWidget {
         Text(
           type == 'debt' ? 'Gesamtschuld: ' : 'Gesamtforderung: ',
           style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontFamily: 'Arial',
-              fontWeight: FontWeight.bold
+            color: Colors.black,
+            fontSize: 20,
+            fontFamily: 'Arial',
+            fontWeight: FontWeight.bold
           )
         ),
         Flexible(

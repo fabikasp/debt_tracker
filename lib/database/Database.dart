@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Database {
+  final CollectionReference userDebts = Firestore.instance.collection('UserDebts');
   final String userID;
+
   Database(this.userID);
 
-  final CollectionReference userDebts = Firestore.instance.collection('UserDebts');
+  Stream getDebts() {
+    return userDebts.document(userID).snapshots();
+  }
 
   Future setDebt(int id, String type, String person, double amount, String reason) async {
     return await userDebts.document(userID).setData(
@@ -30,9 +34,5 @@ class Database {
     return (await userDebts.document(userID).get()).exists
         ? true
         : false;
-  }
-
-  Stream getDebts() {
-    return userDebts.document(userID).snapshots();
   }
 }

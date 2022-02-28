@@ -1,29 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:debttracker/widgets/SingleDebt.dart';
-import 'package:debttracker/widgets/HeadlineText.dart';
+import 'package:debttracker/screens/OverviewScreen/widgets/SingleDebt.dart';
+import 'package:debttracker/screens/OverviewScreen/widgets/HeadlineText.dart';
+import 'package:debttracker/screens/OverviewScreen/widgets/ConfirmDeletionDialog.dart';
+import 'package:debttracker/screens/CreateScreen/CreateScreen.dart';
 import 'package:debttracker/database/Database.dart';
-import 'package:debttracker/screens/CreateScreen.dart';
-import 'package:debttracker/widgets/ConfirmDeletionDialog.dart';
 
-class DebtListScreen extends StatefulWidget {
+class OverviewScreen extends StatefulWidget {
   @override
-  _DebtListScreenState createState() => _DebtListScreenState();
+  _OverviewScreenState createState() => _OverviewScreenState();
 }
 
-class _DebtListScreenState extends State<DebtListScreen> {
+class _OverviewScreenState extends State<OverviewScreen> {
   FirebaseUser user;
   Database database;
   int maxID = 0;
-
-  void setDebt(String type, String person, double amount, String reason) {
-    database.setDebt(maxID + 1, type, person, amount, reason);
-  }
-
-  void updateDebt(int id, String type, String person, double amount, String reason) {
-    database.setDebt(id, type, person, amount, reason);
-  }
 
   Future<void> connectToFirebase() async {
     final FirebaseAuth authenticate = FirebaseAuth.instance;
@@ -33,7 +25,29 @@ class _DebtListScreenState extends State<DebtListScreen> {
     database = Database(user.uid);
   }
 
-  StreamBuilder<DocumentSnapshot> getTotal(String type) {
+  void setDebt(String type, String person, double amount, String reason) {
+    database.setDebt(maxID + 1, type, person, amount, reason);
+  }
+
+  void updateDebt(int id, String type, String person, double amount, String reason) {
+    database.setDebt(id, type, person, amount, reason);
+  }
+
+  void deleteDebt(String key, context) {
+    database.deleteDebt(key);
+    Navigator.pop(context);
+  }
+
+  void confirmDeletion(String key, context) {
+    showDialog<AlertDialog>(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDeletionDialog(() => deleteDebt(key, context));
+        }
+    );
+  }
+
+  StreamBuilder<DocumentSnapshot> buildHeadlineText(String type) {
     return StreamBuilder<DocumentSnapshot>(
         stream: database.getDebts(),
         builder: (
@@ -68,18 +82,55 @@ class _DebtListScreenState extends State<DebtListScreen> {
     );
   }
 
-  void deleteDebt(String key, context) {
-    database.deleteDebt(key);
-    Navigator.pop(context);
+  void setMaxID(Map<String, dynamic> items) {
+    if (items != null) {
+      for (var singleKey in items.keys) {
+        if (int.parse(singleKey) > maxID) {
+          maxID = int.parse(singleKey);
+        }
+      }
+    } else {
+      maxID = 0;
+    }
   }
 
-  void confirmDeletion(String key, context) {
-    showDialog<AlertDialog>(
-      context: context,
-      builder: (BuildContext context) {
-        return ConfirmDeletionDialog(() => deleteDebt(key, context));
-      }
-    );
+  buildDebtList(BuildContext context, AsyncSnapshot snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return Center(
+          child: CircularProgressIndicator()
+      );
+    } else {
+      return StreamBuilder<DocumentSnapshot>(
+          stream: database.getDebts(),
+          builder: (
+            context,
+            AsyncSnapshot<DocumentSnapshot> snapshot
+          ) {
+            if (!snapshot.hasData) {
+              return Center(
+                  child: CircularProgressIndicator()
+              );
+            } else {
+              Map<String, dynamic> items = snapshot.data.data;
+              this.setMaxID(items);
+
+              return ListView.builder(
+                itemCount: items == null ? 0 : items.length,
+                itemBuilder: (context, i) {
+                  String key = items.keys.elementAt(i);
+
+                  return SingleDebt(
+                    key,
+                    items[key],
+                    () => confirmDeletion(key, context),
+                    updateDebt
+                  );
+                }
+              );
+            }
+          }
+      );
+    }
   }
 
   @override
@@ -126,7 +177,7 @@ class _DebtListScreenState extends State<DebtListScreen> {
                                 child: CircularProgressIndicator()
                             );
                           } else {
-                            return getTotal('claim');
+                            return buildHeadlineText('claim');
                           }
                         }
                       ),
@@ -139,7 +190,7 @@ class _DebtListScreenState extends State<DebtListScreen> {
                                 child: CircularProgressIndicator()
                             );
                           } else {
-                            return getTotal('debt');
+                            return buildHeadlineText('debt');
                           }
                         }
                       )
@@ -154,53 +205,7 @@ class _DebtListScreenState extends State<DebtListScreen> {
                 Expanded(
                   child: FutureBuilder(
                     future: connectToFirebase(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                            child: CircularProgressIndicator()
-                        );
-                      } else {
-                        return StreamBuilder<DocumentSnapshot>(
-                          stream: database.getDebts(),
-                          builder: (
-                            context,
-                            AsyncSnapshot<DocumentSnapshot> snapshot
-                          ) {
-                            if (!snapshot.hasData) {
-                              return Center(
-                                  child: CircularProgressIndicator()
-                              );
-                            } else {
-                              Map<String, dynamic> items = snapshot.data.data;
-
-                              if (items != null) {
-                                for (var singleKey in items.keys) {
-                                  if (int.parse(singleKey) > maxID) {
-                                    maxID = int.parse(singleKey);
-                                  }
-                                }
-                              } else {
-                                maxID = 0;
-                              }
-
-                              return ListView.builder(
-                                itemCount: items == null ? 0 : items.length,
-                                itemBuilder: (context, i) {
-                                  String key = items.keys.elementAt(i);
-
-                                  return SingleDebt(
-                                    key,
-                                    items[key],
-                                    () => confirmDeletion(key, context),
-                                    updateDebt
-                                  );
-                                }
-                              );
-                            }
-                          }
-                        );
-                      }
-                    }
+                    builder: (BuildContext context, AsyncSnapshot snapshot) => buildDebtList(context, snapshot),
                   ),
                 )
               ],
