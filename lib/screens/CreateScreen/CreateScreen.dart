@@ -12,8 +12,8 @@ class CreateScreen extends StatefulWidget {
 }
 
 class _CreateScreenState extends State<CreateScreen> {
-  int radioValue = 0;
   final formKey = GlobalKey<FormState>();
+  int radioValue = 0;
   String person = '';
   String amount = '';
   String reason = '';

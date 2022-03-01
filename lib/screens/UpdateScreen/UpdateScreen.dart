@@ -6,7 +6,8 @@ class UpdateScreen extends StatefulWidget {
   final Function updateDebt;
   final String id;
   final Map data;
-  const UpdateScreen({ Key key, this.updateDebt, this.id, this.data }): super(key: key);
+
+  UpdateScreen({ Key key, this.updateDebt, this.id, this.data }): super(key: key);
 
   @override
   _UpdateScreenState createState() => _UpdateScreenState();
