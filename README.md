@@ -24,7 +24,7 @@ App for tracking debts and claims.
   </tr>
   <tr>
     <td><a href="https://github.com/devoncarew/cupertino_icons">Cupertino Icons</a></td>
-    <td>by <a href="https://github.com/devoncarew">Devon Carew</a></td>
+    <td>by <a href="https://github.com/devoncarew">devoncarew</a></td>
     <td>licensed under <a href="https://github.com/devoncarew/cupertino_icons/blob/master/LICENSE">MIT License</a>
   </tr>
 </table>
