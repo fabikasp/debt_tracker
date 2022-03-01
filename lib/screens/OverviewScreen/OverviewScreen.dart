@@ -13,6 +13,9 @@ class OverviewScreen extends StatefulWidget {
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
+  static const String DEBT = 'debt';
+  static const String CLAIM = 'claim';
+
   FirebaseUser user;
   Database database;
   int maxID = 0;
@@ -64,12 +67,12 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
             if (items != null) {
               for (var i in items.keys) {
-                if (type == 'debt') {
-                  if (items[i]['type'] == 'debt') {
+                if (type == DEBT) {
+                  if (items[i]['type'] == DEBT) {
                     result += items[i]['amount'];
                   }
                 } else {
-                  if (items[i]['type'] == 'claim') {
+                  if (items[i]['type'] == CLAIM) {
                     result += items[i]['amount'];
                   }
                 }
@@ -135,98 +138,95 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Builder(
-        builder: (context) {
-          return Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(70),
-              child: AppBar(
-                automaticallyImplyLeading: false,
-                centerTitle: true,
-                title: Column(
+    return Builder(
+      builder: (context) {
+        return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(70),
+            child: AppBar(
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              title: Column(
+                children: <Widget>[
+                  SizedBox(height: 35),
+                  Text(
+                    'DebtTracker',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontFamily: 'Arial'
+                    )
+                  )
+                ],
+              ),
+              backgroundColor: Colors.amber[700]
+            )
+          ),
+          body: Column(
+            children: <Widget>[
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(left: 5, top: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    SizedBox(height: 35),
-                    Text(
-                      'DebtTracker',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontFamily: 'Arial'
-                      )
+                    FutureBuilder(
+                      future: connectToFirebase(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(
+                              child: CircularProgressIndicator()
+                          );
+                        } else {
+                          return buildHeadlineText(CLAIM);
+                        }
+                      }
+                    ),
+                    SizedBox(height: 5),
+                    FutureBuilder(
+                      future: connectToFirebase(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(
+                              child: CircularProgressIndicator()
+                          );
+                        } else {
+                          return buildHeadlineText(DEBT);
+                        }
+                      }
                     )
                   ],
                 ),
-                backgroundColor: Colors.amber[700]
-              )
-            ),
-            body: Column(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(left: 5, top: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      FutureBuilder(
-                        future: connectToFirebase(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(
-                                child: CircularProgressIndicator()
-                            );
-                          } else {
-                            return buildHeadlineText('claim');
-                          }
-                        }
-                      ),
-                      SizedBox(height: 5),
-                      FutureBuilder(
-                        future: connectToFirebase(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(
-                                child: CircularProgressIndicator()
-                            );
-                          } else {
-                            return buildHeadlineText('debt');
-                          }
-                        }
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 5),
-                  height: 3,
-                  color: Colors.black
-                ),
-                Expanded(
-                  child: FutureBuilder(
-                    future: connectToFirebase(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) => buildDebtList(context, snapshot),
-                  ),
-                )
-              ],
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CreateScreen(setDebt: setDebt)),
-                );
-                setState(() {});
-              },
-              backgroundColor: Colors.amber[700],
-              child: Icon(
-                Icons.add,
-                color: Colors.black,
               ),
+              Container(
+                margin: EdgeInsets.only(top: 5),
+                height: 3,
+                color: Colors.black
+              ),
+              Expanded(
+                child: FutureBuilder(
+                  future: connectToFirebase(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) => buildDebtList(context, snapshot),
+                ),
+              )
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreateScreen(setDebt: setDebt)),
+              );
+              setState(() {});
+            },
+            backgroundColor: Colors.amber[700],
+            child: Icon(
+              Icons.add,
+              color: Colors.black,
             ),
-          );
-        },
-      )
+          ),
+        );
+      },
     );
   }
 }
