@@ -9,7 +9,7 @@ App zum Tracken finanzieller Schulden und Forderungen.
 3. `flutter pub get` ausführen
 4. `flutter run` ausführen, um App auf einem verknüpften Gerät zu starten
 
-## Used Software
+## Verwendete Software
 
 <table>
   <tr>
