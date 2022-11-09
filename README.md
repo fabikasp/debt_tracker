@@ -7,7 +7,7 @@ App zum Tracken finanzieller Schulden und Forderungen.
 1. In das geklonte Repository navigieren
 2. Flutter-Umgebung aufsetzen
 3. `flutter pub get` ausführen
-4. `flutter run` ausführen, um App auf einem verknüpften Gerät auszuführen
+4. `flutter run` ausführen, um App auf einem verknüpften Gerät zu starten
 
 ## Used Software
 
