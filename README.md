@@ -1,30 +1,30 @@
 # DebtTracker
 
-App for tracking debts and claims.
+App zum Tracken finanzieller Schulden und Forderungen.
 
 ## Installation
 
-1. Navigate into cloned repository
-2. Set up Flutter environment
-3. Run `flutter pub get`
-4. Run `flutter run` to execute application on an attached device
+1. In das geklonte Repository navigieren
+2. Flutter-Umgebung aufsetzen
+3. `flutter pub get` ausführen
+4. `flutter run` ausführen, um App auf einem verknüpften Gerät auszuführen
 
 ## Used Software
 
 <table>
   <tr>
     <td><a href="https://github.com/flutter/flutter">Flutter</a></td>
-    <td>by <a href="https://github.com/flutter">Flutter</a></td>
-    <td>licensed under <a href="https://github.com/flutter/flutter/blob/master/LICENSE">BSD 3-Clause "New" or "Revised" License</a>
+    <td>von <a href="https://github.com/flutter">Flutter</a></td>
+    <td>lizenziert mit <a href="https://github.com/flutter/flutter/blob/master/LICENSE">BSD 3-Clause "New" or "Revised" License</a>
   </tr>
   <tr>
     <td><a href="https://github.com/FirebaseExtended/flutterfire">Flutterfire</a></td>
-    <td>by <a href="https://github.com/FirebaseExtended">FirebaseExtended</a></td>
-    <td>licensed under <a href="https://github.com/FirebaseExtended/flutterfire/blob/master/LICENSE">BSD 3-Clause "New" or "Revised" License</a>
+    <td>von <a href="https://github.com/FirebaseExtended">FirebaseExtended</a></td>
+    <td>lizenziert mit <a href="https://github.com/FirebaseExtended/flutterfire/blob/master/LICENSE">BSD 3-Clause "New" or "Revised" License</a>
   </tr>
   <tr>
     <td><a href="https://github.com/devoncarew/cupertino_icons">Cupertino Icons</a></td>
-    <td>by <a href="https://github.com/devoncarew">devoncarew</a></td>
-    <td>licensed under <a href="https://github.com/devoncarew/cupertino_icons/blob/master/LICENSE">MIT License</a>
+    <td>von <a href="https://github.com/devoncarew">devoncarew</a></td>
+    <td>lizenziert mit <a href="https://github.com/devoncarew/cupertino_icons/blob/master/LICENSE">MIT License</a>
   </tr>
 </table>
