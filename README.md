@@ -2,7 +2,7 @@
 
 App zum Tracken finanzieller Schulden und Forderungen.
 
-## Installation
+## Ausführung
 
 1. In das geklonte Repository navigieren
 2. Flutter-Umgebung aufsetzen
